@@ -1,0 +1,39 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ExamenApp2.ViewModel;assembly=ExamenApp2"
+             x:Class="ExamenApp2.Views.ProveedoresPage"
+             x:DataType="viewModels:ProveedoresPageViewModel">
+
+    <ContentPage.BindingContext>
+        <viewModels:ProveedoresPageViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+        <!-- Agregar entrada de texto para el nombre del proveedor -->
+        <Entry Placeholder="Nombre" Text="{Binding NuevoProveedor.Nombre}" />
+        
+        <!-- Agregar entrada de texto para la dirección del proveedor -->
+        <Entry Placeholder="Dirección" Text="{Binding NuevoProveedor.Direccion}" />
+
+        <!-- Botón para agregar un nuevo proveedor -->
+        <Button Text="Agregar Proveedor" Command="{Binding AgregarProveedorCommand}" />
+
+        <!-- Lista de proveedores -->
+        <ListView ItemsSource="{Binding Proveedores}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <!-- Utilizamos el enlace a NuevoProveedor.Nombre para mostrar el nombre -->
+                            <Label Text="{Binding Source={x:Reference ThisPage}, Path=BindingContext.NuevoProveedor.Nombre}" />
+                            <!-- Utilizamos el enlace a NuevoProveedor.Direccion para mostrar la dirección -->
+                            <Label Text="{Binding Source={x:Reference ThisPage}, Path=BindingContext.NuevoProveedor.Direccion}" />
+                            <!-- Botón para eliminar el proveedor -->
+                            <Button Text="Eliminar" Command="{Binding Source={x:Reference ThisPage}, Path=BindingContext.EliminarProveedorCommand}" CommandParameter="{Binding}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>
